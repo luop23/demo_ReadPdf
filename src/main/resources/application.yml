@@ -1,0 +1,17 @@
+server:
+  port: 8080
+
+spring:
+  thymeleaf:
+    cache: false
+    check-template-location: true
+    encoding: utf-8
+    mode: HTML5
+    prefix: classpath:/templates/
+    suffix: .html
+    servlet:
+      content-type: text/html
+  servlet:
+    multipart:
+      max-request-size: 200MB
+      max-file-size: 200MB
