@@ -59,7 +59,7 @@ public class HandlePdf {
                     path.mkdir();
                 }
                 //生成指定页码文件
-                filePath = "D:\\pdfbox\\temp_" + page + "_" + System.currentTimeMillis() + ".pdf";
+                filePath = "D:\\pdfbox\\temp_" + page + "_" + System.currentTimeMillis() + ".txt";
                 pd.save(filePath);
                 //关闭文档
                 pdDocument.close();
@@ -68,11 +68,23 @@ public class HandlePdf {
             i++;
         }
 
+
         //读取pdf内容
         File newFile = new File(filePath);
         PDDocument document = PDDocument.load(newFile);
+//        FileInputStream in = new FileInputStream(newFile);
+//        PDFParser parser = new PDFParser(new RandomAccessBuffer(in));
+//        parser.parse();
+//        PDDocument document = parser.getPDDocument();
         //实例化PDFTextStripper类
         PDFTextStripper stripper = new PDFTextStripper();
+        //排序
+        stripper.setSortByPosition(true);
+        stripper.setAddMoreFormatting(true);
+        //词分隔符
+        stripper.setWordSeparator("&");
+        //行分隔符
+        stripper.setLineSeparator("*");
         //检索文本
         String content = stripper.getText(document);
         document.close();
